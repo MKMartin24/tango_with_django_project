@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 
+{% extends 'rango/base.html' %}
 {% load staticfiles %} <!-- New line -->
 
-<html>
+{% comment %} <html>
 
     <head>
         <title>Rango</title>
@@ -51,4 +52,54 @@
         </div>
     </body>
 
-</html>
+</html> {% endcomment %}
+
+{% block title_block %}
+    Homepage
+{% endblock %}
+
+{% block body_block %}
+<head>
+    <title>Rango</title>
+</head>
+
+<body>
+    <h1>Rango says...</h1>
+    <div>
+        hey there partner! <br />
+        <strong>{{ boldmessage }}</strong>
+    </div>
+
+    <h2>Most Liked Categories</h2>
+    <div>
+    {% if categories %}
+        <ul>
+            {% for category in categories %}
+            <li>
+                <a href="{% url 'rango:show_category' category.slug %}">{{ category.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+            <strong>There are no categories present.</strong>
+    {% endif %}
+    </div>
+
+    <h2>Most Viewed Pages</h2>
+    <div>
+        {% if pages %}
+            <ul>
+                {% for page in pages %}
+                    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no pages present.</strong>
+        {% endif %}
+    </div>
+    
+    <div>
+        <img src="{% static 'images/rango.jpg' %}"
+            alt="Picture of Rango" /> 
+    </div>
+{% endblock %}

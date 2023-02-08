@@ -65,7 +65,7 @@ def add_category(request):
         form = CategoryForm(request.POST)
         if form.is_valid():
             form.save(commit=True)
-            return redirect('/rango/')
+            return redirect("{% url 'rango:index' %v}")
         else:
             print(form.errors)
     
